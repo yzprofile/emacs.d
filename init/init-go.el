@@ -4,8 +4,17 @@
 (require-package 'gotest)
 (require-package 'golint)
 (require-package 'go-gopath)
+(require-package 'protobuf-mode)
 
 (add-to-list 'completion-ignored-extensions ".test")
+
+(defconst my-protobuf-style
+  '((c-basic-offset . 2)
+    (indent-tabs-mode . nil)))
+
+(add-hook 'protobuf-mode-hook
+          (lambda () (c-add-style "my-style" my-protobuf-style t)))
+
 
 (defun go-mode-defaults ()
   ;; Prefer goimports to gofmt if installed

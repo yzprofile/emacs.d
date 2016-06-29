@@ -1,9 +1,9 @@
-(require-package 'deft)
+;; (require-package 'deft)
 
 (if (not (boundp 'note-directory)) (setq note-directory "~/Notes"))
-(setq deft-extension "org")
-(setq deft-text-mode 'org-mode)
-(setq deft-directory note-directory)
+;; (setq deft-extension "org")
+;; (setq deft-text-mode 'org-mode)
+;; (setq deft-directory note-directory)
 
 (if (not (boundp 'gtd-directory)) (setq gtd-directory "~/GTD"))
 (defun gtd ()

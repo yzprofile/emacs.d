@@ -1,4 +1,5 @@
 (require-package 'spaceline)
+
 (require 'spaceline-config)
 
 
