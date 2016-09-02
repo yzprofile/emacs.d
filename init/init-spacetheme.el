@@ -1,5 +1,5 @@
 (require-package 'spaceline)
-; (require-package 'spacemacs-theme)
+(package-install 'spacemacs-theme)
 
 (require 'spaceline-config)
 
