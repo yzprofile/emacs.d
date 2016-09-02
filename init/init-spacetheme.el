@@ -1,4 +1,5 @@
 (require-package 'spaceline)
+; (require-package 'spacemacs-theme)
 
 (require 'spaceline-config)
 

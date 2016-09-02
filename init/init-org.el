@@ -4,9 +4,9 @@
 
 (setq org-src-fontify-natively t)
 
-(when *is-a-mac*
-  (require-package 'org-mac-link)
-  (autoload 'org-mac-grab-link "org-mac-link" nil t))
+;; (when *is-a-mac*
+;;   (require-package 'org-mac-link)
+;;   (autoload 'org-mac-grab-link "org-mac-link" nil t))
 
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)

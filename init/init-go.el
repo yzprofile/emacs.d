@@ -1,20 +1,11 @@
 (require-package 'go-mode)
+(require 'go-mode-autoloads)
+
 (require-package 'company-go)
 (require-package 'go-projectile)
 (require-package 'gotest)
 (require-package 'golint)
 (require-package 'go-gopath)
-(require-package 'protobuf-mode)
-
-(add-to-list 'completion-ignored-extensions ".test")
-
-(defconst my-protobuf-style
-  '((c-basic-offset . 2)
-    (indent-tabs-mode . nil)))
-
-(add-hook 'protobuf-mode-hook
-          (lambda () (c-add-style "my-style" my-protobuf-style t)))
-
 
 (defun go-mode-defaults ()
   ;; Prefer goimports to gofmt if installed
@@ -32,5 +23,13 @@
 
 (add-hook 'go-mode-hook 'go-mode-defaults)
 
+
+(require-package 'protobuf-mode)
+(defconst protobuf-style
+  '((c-basic-offset . 2)
+    (indent-tabs-mode . nil)))
+
+(add-hook 'protobuf-mode-hook
+          (lambda () (c-add-style "my-style" protobuf-style t)))
 
 (provide 'init-go)
