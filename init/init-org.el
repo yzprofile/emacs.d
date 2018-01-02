@@ -85,10 +85,6 @@
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 
-(after-load 'org
-  (when *is-a-mac*
-    (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
-
 (setq org-replace-disputed-keys t)
 (setq org-confirm-babel-evaluate nil)
 (setq org-babel-results-keyword "results")

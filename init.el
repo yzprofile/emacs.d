@@ -1,3 +1,9 @@
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (let ((minver 23))
   (unless (>= emacs-major-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher"
@@ -35,6 +41,7 @@
 (require 'init-window)
 
 (require 'init-org)
+
 (require 'init-image)
 (require 'init-yasnippet)
 (require 'init-erlang)
@@ -44,16 +51,20 @@
 (require 'init-c)
 (require 'init-sql)
 (require 'init-actionscript)
+
 (require 'init-web)
 (require 'init-python)
 (require 'init-lua)
+(require 'init-csharp)
+
 (require 'init-company)
 (require 'init-codesearch)
 (require 'init-ace)
 (require 'init-guide-key)
-(require 'init-projectile)
 
-;; (require 'init-exwm)
+;(require 'init-projectile)
+
+;; ;; (require 'init-exwm)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)

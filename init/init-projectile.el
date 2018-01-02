@@ -1,7 +1,11 @@
 (require-package 'projectile)
 (require-package 'helm-projectile)
 
-(projectile-global-mode)
+(setq projectile-mode-line
+      '(:eval (format " Projectile[%s]"
+                      (projectile-project-name))))
+
+(projectile-mode)
 (helm-projectile-on)
 
 

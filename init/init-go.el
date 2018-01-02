@@ -1,5 +1,4 @@
 (require-package 'go-mode)
-(require 'go-mode-autoloads)
 
 (require-package 'company-go)
 (require-package 'go-projectile)
