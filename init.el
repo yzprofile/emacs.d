@@ -62,7 +62,8 @@
 (require 'init-ace)
 (require 'init-guide-key)
 
-;(require 'init-projectile)
+(require 'init-projectile)
+(require 'init-git)
 
 ;; ;; (require 'init-exwm)
 

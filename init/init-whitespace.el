@@ -1,12 +1,25 @@
-(require-package 'whitespace)
+(setq-default show-trailing-whitespace t)
 
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face tabs empty trailing lines-tail))
-(defun enable-whitespace ()
-  (add-hook 'before-save-hook 'whitespace-cleanup nil t)
-  (setq whitespace-action '(auto-cleanup))
-  (whitespace-mode +1))
+(defun sanityinc/no-trailing-whitespace ()
+  "Turn off display of trailing whitespace in this buffer."
+  (setq show-trailing-whitespace nil))
 
-(add-hook 'prog-mode-hook #'enable-whitespace)
+;; But don't show trailing whitespace in SQLi, inf-ruby etc.
+(dolist (hook '(special-mode-hook
+                Info-mode-hook
+                eww-mode-hook
+                term-mode-hook
+                comint-mode-hook
+                compilation-mode-hook
+                twittering-mode-hook
+                minibuffer-setup-hook))
+  (add-hook hook #'sanityinc/no-trailing-whitespace))
+
+
+(require-package 'whitespace-cleanup-mode)
+(add-hook 'after-init-hook 'global-whitespace-cleanup-mode)
+
+(global-set-key [remap just-one-space] 'cycle-spacing)
+
 
 (provide 'init-whitespace)
