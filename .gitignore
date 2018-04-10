@@ -30,3 +30,5 @@ custom.el
 init-personal.el
 request/
 edts/
+emojis/
+.cache/
