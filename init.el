@@ -64,6 +64,7 @@
 
 (require 'init-projectile)
 (require 'init-git)
+;;(require 'init-js)
 
 ;; ;; (require 'init-exwm)
 
