@@ -16,8 +16,7 @@
   (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup))
 
 (after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up)
-  (add-hook 'magit-popup-mode-hook 'sanityinc/no-trailing-whitespace))
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up))
 
 (require-package 'fullframe)
 (after-load 'magit
@@ -26,7 +25,6 @@
 (when (require-package 'git-commit)
   (add-hook 'git-commit-mode-hook 'goto-address-mode))
 
-
 (when *is-a-mac*
   (after-load 'magit
     (add-hook 'magit-mode-hook (lambda () (local-unset-key [(meta h)])))))
@@ -36,16 +34,6 @@
 (after-load 'vc
   (define-key vc-prefix-map (kbd "f") 'vc-git-grep))
 
-
-;;; git-svn support
-
-;; (when (require-package 'magit-svn)
-;;   (require-package 'magit-svn)
-;;   (autoload 'magit-svn-enabled "magit-svn")
-;;   (defun sanityinc/maybe-enable-magit-svn-mode ()
-;;     (when (magit-svn-enabled)
-;;       (magit-svn-mode)))
-;;   (add-hook 'magit-status-mode-hook #'sanityinc/maybe-enable-magit-svn-mode))
 
 (after-load 'compile
   (dolist (defn (list '(git-svn-updated "^\t[A-Z]\t\\(.*\\)$" 1 nil nil 0 1)
@@ -71,7 +59,7 @@
          (compilation-buffer-name-function (lambda (major-mode-name) "*git-svn*")))
     (compile (concat "git svn " command))))
 
-
+
 (require-package 'git-messenger)
 ;; Though see also vc-annotate's "n" & "p" bindings
 (after-load 'vc
