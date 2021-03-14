@@ -4,14 +4,53 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(let ((minver 23))
-  (unless (>= emacs-major-version minver)
-    (error "Your Emacs is too old -- this config requires v%s or higher"
-           minver)))
+(let* ((minver "24.4"))
+  (when (version< emacs-version minver)
+    (error "Emacs v%s or higher is required." minver)))
 
-(add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
+(defvar best-gc-cons-threshold
+  4000000
+  "Best default gc threshold value.  Should NOT be too big!")
 
-(defconst *is-a-mac* (eq system-type 'darwin))
+(setq gc-cons-threshold most-positive-fixnum)
+(setq emacs-load-start-time (current-time))
+(with-eval-after-load "enriched"
+  (defun enriched-decode-display-prop (start end &optional param)
+    (list start end)))
+(setq *is-a-mac* (eq system-type 'darwin))
+(setq *win64* (eq system-type 'windows-nt))
+(setq *cygwin* (eq system-type 'cygwin) )
+(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)) )
+(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)) )
+(setq *emacs24* (>= emacs-major-version 24))
+(setq *emacs25* (>= emacs-major-version 25))
+(setq *emacs26* (>= emacs-major-version 26))
+(setq *no-memory* (cond
+                   (*is-a-mac*
+                    ;; @see https://discussions.apple.com/thread/1753088
+                    ;; "sysctl -n hw.physmem" does not work
+                    (<= (string-to-number (shell-command-to-string "sysctl -n hw.memsize"))
+                        (* 4 1024 1024)))
+                   (*linux* nil)
+                   (t nil)))
+
+(when *emacs25*
+  ;; (setq garbage-collection-messages t) ; for debug
+  (setq best-gc-cons-threshold (* 64 1024 1024))
+  (setq gc-cons-percentage 0.5)
+  (run-with-idle-timer 5 t #'garbage-collect))
+
+(defun my-vc-merge-p ()
+  (boundp 'startup-now))
+
+(defun require-init (pkg &optional maybe-disabled)
+  "Load PKG if MAYBE-DISABLED is nil or it's nil but start up in normal slowly."
+  (when (or (not maybe-disabled) (not (my-vc-merge-p)))
+    (load (file-truename (format "~/.emacs.d/init/%s" pkg)) t t)))
+
+(defadvice switch-to-buffer (after switch-to-buffer-after-hack activate)
+  (if (string= "*Messages*" (buffer-name))
+      (read-only-mode -1)))
 
 (require 'init-package)
 (require 'init-exec-path)
